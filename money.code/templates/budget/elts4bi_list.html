@@ -1,0 +1,59 @@
+<!-- templates/budget/elts4bi_list.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load banks_extra %}
+
+{% load django_bootstrap5 %}
+
+
+{% block bootstrap5_content %}
+  {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+  <main>
+    <div class="container container-md">
+    {% include 'select_date.html' %}
+    {% include 'menu.html' %}
+			<!----------------- start -------------->
+			<div class="row justify-content-center my-4">
+				<div class="col col-md-8">
+					<h2>{% trans 'OpElement list for' %} {{ bi }}</h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				{% if opelement_list.count is not 0 %}
+				<div class="col col-md-8">
+					<table class="table table-striped">
+					  <tbody>
+							{% for oe in opelement_list %}
+								<tr>
+									<td>{{ oe.id }}</td>
+                  {% if oe.operation.state == 'C' %}
+                    <td class="text-primary">{{ oe.operation }}</td>
+                  {% elif oe.operation.state == 'D' %}
+                    <td class="text-warning">{{ oe.operation }}</td>
+                  {% else %}
+                    <td class="text-secondary">{{ oe.operation }}</td>
+                  {% endif %}
+									<td class="text-end">
+										<a href="{% url 'budget:elts4op-list' oe.operation.id %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'Spreading detail' %}"><i class="fas fa-project-diagram"></i></a>
+									</td>
+                  {% comment %}
+									<td>
+										<a href="{% url 'banks:operation-edit' oe.operation.id %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'Edit the corresponding Operation' %}"><i class="fas fa-pencil-alt"></i></a>
+									</td>
+                  {% endcomment %}
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				{% else %}
+				<div class="col col-md-8 alert alert-warning" role="alert">
+					{% trans "There's no OpElement for this Item yet" %}
+				</div>
+				{% endif %}
+			</div>
+			<!---------------- end ----------------->
+		</div>
+  </main>
+{% endblock %}

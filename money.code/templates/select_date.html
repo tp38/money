@@ -1,0 +1,23 @@
+<!-- template select_date.html -->
+{% load i18n %}
+<div class="row justify-content-center my-4">
+  <div class="col col-md-6">
+    <form  class="row align-items-center justify-content-center"  action="{% url 'banks:change-date' %}" method="GET">
+      <div class="col-2  text-end">
+        <a href="javascript:set_today()" type="button" class="btn btn-primary" title="{% trans 'Current month' %}">
+          <i class="fas fa-calendar-day"></i>
+          <span class="visually-hidden">{% trans "Set date" %}</span>
+        </a>
+      </div>
+      <div class="col-8 text-center">
+        <input class="form-control" type="date" size="10" id="view_day" name="view_day" value="{{ view_day|date:'Y-m-d' }}">
+      </div>
+      <div class="col-2  text-start">
+        <button type="submit" class="btn btn-primary" title="{% trans 'Set date' %}">
+          <i class="fa-solid fa-check"></i>
+          <span class="visually-hidden">{% trans "Set date" %}</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

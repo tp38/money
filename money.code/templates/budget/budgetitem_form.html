@@ -1,0 +1,40 @@
+<!-- templates/budget/budgetitem_list.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load banks_extra %}
+
+{% load django_bootstrap5 %}
+
+
+{% block bootstrap5_content %}
+  {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+  <main>
+    <div class="container container-md">
+    {% include 'select_date.html' %}
+    {% include 'menu.html' %}
+			<!----------------- start -------------->
+			<div class="row justify-content-center my-4">
+        <div class="col col-md-8">
+          <h2>{% trans "Create or Update a Budget Item" %}</h2>
+        </div>
+			</div>
+			<form method="POST">
+			<div class="row justify-content-center">
+				<div class="col col-md-8">
+						{% csrf_token %}
+						{% bootstrap_form form %}
+						<input type="hidden" name="date" value="{{view_day|date:'Y-m-d'}}">
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col col-md-8 text-center">
+					<input class="btn btn-primary" type="submit" value="{% trans 'Save' %}" data-toggle="tooltip" title="{% trans 'Save this budget item' %}">
+					<a  class="btn btn-primary" role="button" href="{% url 'budget:items-list' %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'Cancel and return to your BudgetItem list' %}">{% trans 'Cancel' %}</a>
+				</div>
+			</div>
+			</form>
+			<!---------------- end ----------------->
+		</div>
+  </main>
+{% endblock %}

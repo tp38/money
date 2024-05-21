@@ -1,0 +1,98 @@
+<!-- templates/banks/operation_list.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load banks_extra %}
+
+{% load django_bootstrap5 %}
+
+
+{% block bootstrap5_content %}
+  {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+  <main>
+    <div class="container container-md">
+    {% include 'select_date.html' %}
+    {% include 'menu.html' %}
+		<!----------------- start -------------->
+      <div class="row justify-content-center">
+				<div class="col-md-4">
+					<h2>{% trans 'Search result'%}</h2>
+				</div>
+      </div>
+			<div class="row justify-content-center ">
+        <div class="col col-md-8">
+          <div class="row justify-content-between">
+            <div class="col-6 col-md-3 text-center h4">
+              <a href="{% url 'banks:operation-list' bankaccount_id 'all' %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'Display all operations ' %}"><i class="fas fa-align-justify"></i></a>
+              <a href="{% url 'banks:operation-list' bankaccount_id 'active' %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'Display active operations ' %}"><i class="fas fa-running"></i></a>
+              {% if mode != 'checked' %}<a href="{% url 'banks:operation-list' bankaccount_id 'checked' %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'Display/Hide checked operations' %}"><i class="fas fa-check"></i></a>{% endif %}
+              {% if mode != 'done' %}<a href="{% url 'banks:operation-list' bankaccount_id 'done' %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'Display/Hide done operations' %}"><i class="far fa-thumbs-up"></i></a>{% endif %}
+              {% if mode != 'upcoming' %}<a href="{% url 'banks:operation-list' bankaccount_id 'upcoming' %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'Display/Hide upcoming operations' %}"><i class="far fa-clock"></i></a>{% endif %}
+            </div>
+            <div class="col-3 col-md-2 text-center h4">
+              <a href="{% url 'banks:operation-add' bankaccount_id %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'Add an Operation' %}"><i class="far fa-plus-square"></i></a>
+              <a href="{% url 'banks:operations-search' bankaccount_id %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'Search operations' %}"><i class="fas fa-search"></i></a>
+            </div>
+          </div>
+        </div>
+			</div>
+			{% for op in operation_list %}
+      <div class="row justify-content-center my-2 py-2  ">
+        <div class="col-9 col-md-6">
+          {% if op.state == "C" %}
+          <div class="row text-primary">
+          {% elif op.state == "D" %}
+          <div class="row text-warning">
+          {% else %}
+          <div class="row text-secondary">
+            {% endif %}
+            <div class="col">
+              <div class="hstack gap-3">
+                <div>{{ op.value_date|date:"d-m-Y" }}</div>
+                <div class="p-2">{{ op.paymedia.media_type }} D{{ op.paymedia.debit_type }}</div>
+                <div class="p-2 ms-auto">{{ op.amount }}</div>
+              </div>
+            </div>
+          </div>
+          {% if op.state == "C" %}
+          <div class="row text-primary">
+          {% elif op.state == "D" %}
+          <div class="row text-warning">
+          {% else %}
+          <div class="row text-secondary">
+          {% endif %}
+            <div class="col fw-semibold">
+              {{ op.comment|truncatechars:50 }}
+            </div>
+          </div>
+        </div>
+        <div class="btn-group dropstart col-2 col-md-1 align-items-center">
+          <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-pencil-alt"></i>
+            {% if op.nb == 0 %}
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">0.00</span>
+            {% elif op.total != op.amount %}
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">{{ op.total }}</span>
+            {% else %}
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">{{ op.total }}</span>
+            {% endif %}
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item {% if op.state == 'C' %}disabled{% endif %}" href="{% url 'banks:operation-change-status' op.id 'C' %}?date={{ view_day|date:'Y-m-d' }}">{% trans 'Checked' %}</a></li>
+            <li><a class="dropdown-item {% if op.state == 'D' %}disabled{% endif %}" href="{% url 'banks:operation-change-status' op.id 'D' %}?date={{ view_day|date:'Y-m-d' }}">{% trans 'Done' %}</a></li>
+            <li><a class="dropdown-item {% if op.state == 'U' %}disabled{% endif %}" href="{% url 'banks:operation-change-status' op.id 'U' %}?date={{ view_day|date:'Y-m-d' }}">{% trans 'Upcoming' %}</a></li>
+            <li><a class="dropdown-item" href="{% url 'banks:operation-edit' op.id %}?date={{ view_day|date:'Y-m-d' }}">{% trans 'Edit' %}</a></li>
+            {% if op.nb == 0 %}
+            <li><a class="dropdown-item" href="{% url 'budget:element-add' op.id %}?date={{ view_day|date:'Y-m-d' }}">{% trans 'Add' %}</a></li>
+            {% else %}
+            <li><a class="dropdown-item" href="{% url 'budget:elts4op-list' op.id %}?date={{ view_day|date:'Y-m-d' }}">{% trans 'Spread' %}</a></li>
+            {% endif %}
+            <li><a class="dropdown-item" href="{% url 'banks:operation-del' op.id %}">{% trans 'Delete' %}</a></li>
+          </ul>
+        </div>
+      </div>
+			{% endfor %}
+			<!---------------- end ----------------->
+		</div>
+  </main>
+{% endblock %}

@@ -1,0 +1,45 @@
+<!-- templates banks/operation_form.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% get_media_prefix %}
+{% load i18n %}
+{% load banks_extra %}
+
+{% block title %}Create or Edit an Operation{% endblock %}
+{% load django_bootstrap5 %}
+
+
+{% block bootstrap5_content %}
+  {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+  <main>
+    <div class="container container-md">
+    {% include 'select_date.html' %}
+    {% include 'menu.html' %}
+		<!----------------- start -------------->
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col text-center">
+						<h2>{% trans "Create or update an Operation" %}</h2>
+					</div>
+				</div>
+				<form method="POST">
+					{% csrf_token %}
+					<div class="row justify-content-center mt-3">
+						<div class="col col-md-5">
+							{% bootstrap_form form %}
+							<input type="hidden" name="date" value="{{view_day|date:'Y-m-d'}}">
+						</div>
+					</div>
+					<div class="row justify-content-center mt-3">
+						<div class="col col-md-5 text-center">
+							<input class="btn btn-primary" type="submit" value="{% trans 'Save' %}" data-toggle="tooltip" title="{% trans 'Save this new pay operation' %}">
+							<a  class="btn btn-primary" role="button" href="{% url 'banks:operation-list' bankaccount_id 'active' %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'Cancel and return to the pay media list for this account' %}">{% trans 'Cancel' %}</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		<!---------------- end ----------------->
+		</div>
+  </main>
+{% endblock %}

@@ -1,0 +1,59 @@
+<!-- templates/budget/budgetitemref_list.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load banks_extra %}
+
+{% load django_bootstrap5 %}
+
+
+{% block bootstrap5_content %}
+  {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+  <main>
+    <div class="container container-md">
+    {% include 'select_date.html' %}
+    {% include 'menu.html' %}
+			<!----------------- start -------------->
+			<div class="row justify-content-center">
+				<div class="col col-md-8 text-center">
+					<h2>{% trans 'BudgetItemRef list' %}</h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col col-md-6">
+					<table class="table table-striped">
+					  <tbody>
+							{% for bir in budgetitemref_list %}
+								<tr>
+									<td>{{ bir.name|truncatechars:18 }}</td>
+									<td class="text-end">{{ bir.amount }}</td>
+									{% comment %}
+									<td><a class="text-end" href="#" data-toggle="tooltip" title="{% trans 'Edit this Budget Ref Item' %}"><i class="fas fa-pencil-alt"></i></a></td>
+									{% endcomment %}
+								</tr>
+							{% endfor %}
+							{% if solde > 0 %}
+							<tr class="table-success font-weight-bold">
+								<td class="text-center">Reste</td>
+								<td class="text-end">{{solde}}</td>
+								{% comment %}
+								<td></td>
+								{% endcomment %}
+							</tr>
+							{% else %}
+							<tr class="table-danger font-weight-bold">
+								<td class="text-center">Reste</td>
+								<td class="text-end">{{solde}}</td>
+								{% comment %}
+								<td></td>
+								{% endcomment %}
+							</tr>
+							{% endif %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!---------------- end ----------------->
+		</div>
+  </main>
+{% endblock %}

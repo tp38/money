@@ -1,0 +1,82 @@
+<!-- templates/banks/bankaccount_list.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% get_media_prefix %}
+{% load i18n %}
+{% load banks_extra %}
+
+{% load django_bootstrap5 %}
+
+
+{% block bootstrap5_content %}
+  {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+  <main>
+    <div class="container container-md">
+    {% include 'select_date.html' %}
+    {% include 'menu.html' %}
+      <div class="row justify-content-center">
+        <div class="col col-md-8">
+          <div class="row justify-content-center py-2">
+            <div class="col col-md-1 text-center fw-bold m-1 p-1">
+              {% trans 'Sum' %}
+            </div>
+            <div class="col-3 col-md-2 text-end bg-primary fw-bold {% if checked_sum < 0 %}bg-light font-weight-bold text-danger{% else %}text-black{% endif %} m-1 p-1">
+              {{ checked_sum }}
+            </div>
+            <div class="col-3 col-md-2 text-end bg-warning fw-bold {% if done_sum < 0 %}bg-light font-weight-bold text-danger{% else %}text-black{% endif %} m-1 p-1">
+              {{ done_sum }}
+            </div>
+            <div class="col-3 col-md-2 text-end bg-secondary fw-bold {% if upcoming_sum < 0 %}bg-light font-weight-bold text-danger{% else %}text-black{% endif %} m-1 p-1">
+              {{ upcoming_sum }}
+            </div>
+          </div>
+          <div class="row justify-content-between my-2">
+            <button class="btn btn btn-outline-primary col-2 col-md-1" type="button" data-bs-target="#accountsTypeCarrousel" data-bs-slide="prev">
+              <i class="fa-solid fa-caret-left"></i>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="btn btn btn-outline-primary col-2 col-md-1" type="button" data-bs-target="#accountsTypeCarrousel" data-bs-slide="next">
+              <i class="fa-solid fa-caret-right"></i>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <div id="accountsTypeCarrousel" class="carousel carousel-dark slide" >
+            <div class="carousel-inner">
+              {% for t in types %}
+              <div class="carousel-item {% if t.account_type == 'CC' %} active {% endif %}">
+                <div class="row justify-content-center">
+                  <div class="col-12">
+                    {% for a in accounts %}
+                    {% if a.account_type == t.account_type %}
+                    <div class="row align-items-center my-4">
+											<div class="col-2 col-md-2">
+												<img src="{{ MEDIA_URL }}{{ a.bank.logo }}" alt="logo"  height="30">
+											</div>
+											<div class="d-grid gap-2 mx-auto col-8 col-md-4 offset-md-4">
+												<a class="btn text-light font-weight-bold " style="background-color: {{ a.bank.color }}" href="{% url 'banks:operation-list' a.id 'active' %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'View operation list for this account' %}">
+                          {{ a.account_type }} {{ a|own_by|capfirst }}
+                        </a>
+											</div>
+											<div class="col-4 col-md-2 text-end {% if a.checked < 0 %}font-weight-bold text-danger{% else %}text-primary{% endif %}">
+												{{ a.checked }}
+											</div>
+											<div class="col-4 col-md-2 text-end {% if a.done < 0 %}font-weight-bold text-danger{% else %}text-warning{% endif %}">
+												{{ a.done }}
+											</div>
+											<div class="col-4 col-md-2 text-end {% if a.upcoming < 0 %}font-weight-bold text-danger{% else %}text-secondary{% endif %}">
+												{{ a.upcoming }}
+											</div>
+										</div>
+                    {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+		</div>
+  </main>
+{% endblock %}

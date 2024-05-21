@@ -1,0 +1,53 @@
+@startuml
+title Diagramme d'Activité (Vues) -Budget v4
+'pragma useVerticalIf on
+'skinparam ConditionEndStyle hline
+
+start
+repeat :\n{{\nsalt\n{+\nLogin    | "MyName   "\nPassword | "****     "\n[Cancel] | [  OK   ]\n}\n}}\n;
+repeat while (not auth)
+:{{\nsalt\n{+\n{/<b>Bank</b> | <color:blue>Budget | <color:blue>Analyze | <color:blue>Admin | <color:blue>Logout}\n{\n<color:blue>Add a transaction (<&plus>)\n{T#\n+Account    |  Check   |   Done   |   Upcoming\n+<color:blue><u>ING</u>        |  69.69   |   69.69   |   69.69\n\n+<color:blue><u>MACIF</u>      |  11.11   |   22.22   |   33.33\n}\n}\n}\n}};
+if ([account]\nie : ING or MACIF) then (yes)
+  :{{\nsalt\n{+\n{* <color:blue><&grid-three-up>|<color:blue><&magnifying-glass>|<color:blue><&check>|<color:blue><&thumb-up>|<color:blue><&clock>}\n{\n<color:blue>Add a transaction (<&plus>)\n{T-\n+CB_DI_ING_Ty | @Carrefour #Courses | -17.89 | <color:blue><&pencil> <color:blue><&trash>\n+CHQ_ING_Ty | @Thierry #Cadeau | -69.00 | <color:blue><&pencil> <color:blue><&trash>\n+CB_DD_ING_Ty | @Thierry #Cadeau | -69.00 | <color:blue><&pencil> <color:blue><&trash>\n}\n}\n}\n}};
+  if ( <color:blue><&plus>\n(add)) then (yes)
+    :{{\nsalt\n{+\nPayMedia | ^CB_DI_ING_Ty^\nDate | "YYYY-MM-DD"\nComment | "use #hashtag and @pseudo"\nAmount | "0.00"\nState | ^Upcoming^\nFrequency | ^One shot^\n[Save] | [Cancel]\n}\n}};
+  elseif ( <color:blue><&trash>\n(del) ) then (yes)
+    :{{\nsalt\n{+\nAre you sure you want to\ndelete this transaction ?\n[Yes]|[Cancel]\n}\n}};
+  elseif ( <color:blue><&magnifying-glass>\n(search) ) then (yes)
+    :{{\nsalt\n{+\nPayMedia | ^None^\nDate | " "\nComment | "       "\nAmount | " "\nState | ^None^\nFrequency | ^None^\n[Search]\n}\n}};
+  elseif ( update ) then (<color:blue><&pencil>)
+      :{{\nsalt\n{+\nPayMedia | ^CB_DI_ING_Ty^\nDate | "2020-10-27"\nComment | "@Carrefour #Courses"\nAmount | "-17.89"\nState | ^Done^\nFrequency | ^One shot^\n[Save] | [Cancel]\n}\n}};
+  else ( <color:blue><&check> <color:blue><&thumb-up> <color:blue><&clock> )
+  endif
+endif
+if (budget) then (yes)
+  :{{\nsalt\n{+\n{/<color:blue>Bank | <b>Budget</b> | <color:blue>Analyze | <color:blue>Admin | <color:blue>Logout}\n{\n{T#\n+Envelope    |  Target   |   Done   \n+<color:blue>#House        |  69.69   |   69.69\n\n+<color:blue>#Cars      |  11.11   |   22.22\n}\n}\n}\n}};
+  if ([Envelope]\nie : #House or #Cars) then (yes)
+    :{{\nsalt\n{+\n{* <color:blue><&grid-three-up>}\n{\n{\n<b>#House</b>\nTarget | "-66.99"\n[change]\n<b>History</b>\n}\n{T-\n+<color:blue>M | -17.89\n+<color:blue>M-1 | -69.00\n+<color:blue>M-2 | -69.00\n}\n}\n}\n}};
+    if ([Month]\nie : M link) then (yes)
+      :{{\nsalt\n{+\n{* <color:blue><&grid-three-up>}\n{\n{\n<b>#House</b>\ntarget is -66.99\n<b>List for month M</b>\n}\n{T-\n+CHQ_ING_Ty | @Impots TF Faverges #House | -69.00 | <color:blue><&pencil> <color:blue><&trash>\n+CB_DD_ING_Ty | @SyndicatEau #House | -6.90 | <color:blue><&pencil> <color:blue><&trash>\n}\n}\n}\n}};
+      if ( <color:blue><&pencil>\n(update) ) then (yes)
+          :{{\nsalt\n{+\nPayMedia | ^CB_DD_ING_Ty^\nDate | "2020-10-27"\nComment | "@SyndicatEau #House"\nAmount | "-69.00"\nState | ^Done^\nFrequency | ^One shot^\n[Save] | [Cancel]\n}\n}};
+      elseif ( <color:blue><&trash>\n(del) ) then (yes)
+        :{{\nsalt\n{+\nAre you sure you want to\ndelete this transaction ?\n[Yes]|[Cancel]\n}\n}};
+      endif
+    endif
+  endif
+endif
+if (analyse) then (yes)
+  :{{\nsalt\n{+\n{/<color:blue>Bank | <color:blue>Budget | <b>Analyze</b> | <color:blue>Admin | <color:blue>Logout}\n{\n{T#\n+Third | M | M-1 | M-2 | ... | M-11\n+@Thierry | <color:blue>-69.69 | <color:blue>-6.6 | <color:blue>-9.9 | ... | <color:blue>-696.969\n+@Carrefour | <color:blue>-01.23 | <color:blue>-02.34 | <color:blue>-04.56 | ... | <color:blue>-09.87\n}\n}\n}\n}};
+  if ([Third and Month]\nie : @Thierry and M (-69.69 link)) then (yes)
+    :{{\nsalt\n{+\n{* <color:blue><&grid-three-up>}\n{\n{\n<b>@Thierry</b>\na comment on Thierry third\n<b>List for month M</b>\n}\n{T-\n+CHQ_ING_Ty | @Thierry #Cadeau | -69.00 | <color:blue><&pencil> <color:blue><&trash>\n+CB_DD_ING_Ty | @Thierry #Cadeau | -6.90 | <color:blue><&pencil> <color:blue><&trash>\n}\n}\n}\n}};
+    if ( <color:blue><&pencil>\n(update) ) then (yes)
+        :{{\nsalt\n{+\nPayMedia | ^CB_DD_ING_Ty^\nDate | "2020-10-27"\nComment | "@Thierry #Cadeau"\nAmount | "-69.00"\nState | ^Done^\nFrequency | ^One shot^\n[Save] | [Cancel]\n}\n}};
+    elseif ( <color:blue><&trash>\n(del) ) then (yes)
+      :{{\nsalt\n{+\nAre you sure you want to\ndelete this transaction ?\n[Yes]|[Cancel]\n}\n}};
+    endif
+  endif
+endif
+if (admin) then (yes)
+  :{{\nsalt\n{+\n{/<color:blue>Bank | <color:blue>Budget | <color:blue>Analyze | <b>Admin</b> | <color:blue>Logout}\n{\n{T#\n+UserID    |   email   | role   \n+1       |  thierry.probst@free.fr   | admin   \n\n+2      |  nathalie.probst38@gmail.com  | user   \n}\n}\n}\n}};
+endif
+stop
+
+@enduml

@@ -1,0 +1,46 @@
+<!-- templates banks/operation_confirm_delete.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load banks_extra %}
+
+{% load django_bootstrap5 %}
+
+
+{% block bootstrap5_content %}
+  {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+  <main>
+    <div class="container container-md">
+    {% include 'select_date.html' %}
+    {% include 'menu.html' %}
+		<!----------------- start -------------->
+		<div class="row justify-content-center mt-3">
+			<div class="col col-md-5">
+				<h2>{% trans "Delete an Operation" %}</h2>
+			</div>
+		</div>
+		<form method="POST">
+			{% csrf_token %}
+			<div class="row justify-content-center mt-3">
+				<div class="col col-md-5">
+          <div class="alert alert-danger" role="alert">
+            {% trans 'Are you sure you really want to delete this operation' %} ?
+          </div>
+				</div>
+			</div>
+			<div class="row justify-content-center m-3">
+				<div class="col col-md-5">
+		      {{ object }}"
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col col-md-5 text-center">
+					<input class="btn btn-primary"  type="submit" value="{% trans 'Confirm' %}">
+					<a class="btn btn-primary" href="{% url 'banks:operation-list' operation.paymedia.bank_account.id 'active' %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'Return to your BankAccount detail' %}">{% trans 'Cancel' %}</a>
+				</div>
+			</div>
+		</form>
+		<!---------------- end ----------------->
+		</div>
+  </main>
+{% endblock %}

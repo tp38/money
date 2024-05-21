@@ -1,0 +1,130 @@
+@startuml
+title Diagramme de Classe - Budget v4
+'left to right direction
+
+rectangle Django {
+  class User {
+    String firstname
+    String lastname
+    String email
+    String password
+  }
+}
+
+rectangle "Budget v4" {
+  package "Bank" {
+
+    class Bank {
+      String[20] name
+      String[5] short
+      String[7] color
+      Image logo
+    }
+
+    class BankAccount {
+      String[5] account_type
+      String[27] iban
+      Date close_date
+      String Slug()
+    }
+
+    note left of BankAccount
+      <b>account_type</b> :
+      CC (Checking Account)
+      LA (`A` Booklet)
+      ESP (Cash Account)
+    end note
+
+    class PayMedia {
+      String[3] media_type
+      String[200] comment
+      Char debit_type
+      SmallInteger care_day
+      SmallInteger nb_deferred_days
+      Date expire_date
+      String Slug()
+      Date get_value_date( Date )
+    }
+
+    note right of PayMedia
+      <b>media_type</b> :
+      CHQ
+      CB
+      VRT
+      ESP
+    end note
+
+    note left of PayMedia
+      <b>debit_type</b> :
+      I (Immediate) or
+      D (Deferred)
+    end note
+
+    class Operation {
+      Date completion_date
+      Date value_date
+      String[100] comment
+      Decimal amount
+      Char state
+      Char frequency
+    }
+
+
+    note left of Operation
+      <b>status</b> :
+        C (Check)/
+        D (Done)/
+        U (Upcoming)
+      ----
+      <b>frequency</b> :
+        N (None / One shot)/
+        M (Monthly)/
+        Q (Quaterly)/
+        H (half-year)/
+        Y (yearly)
+    end note
+
+
+  }
+
+  package "Manage" {
+    class Envelope {
+      Decimal amount
+      String[7] period
+      name()
+    }
+
+    note top of Envelope
+      <b>period</b>
+      like "YYYY-MM"
+    end note
+
+    class HashTag {
+      String[15] word
+    }
+
+    class Pseudo {
+      String[20] name
+    }
+  }
+}
+
+User "*" --o "*" BankAccount : > own
+User "*" --o "*" BankAccount : > access
+
+note left of User
+  owners can modify BankAccount
+  users only use (access) BankAccount
+end note
+
+Bank *-- "*" BankAccount
+BankAccount *-- "*" PayMedia
+PayMedia  *-- "*" Operation
+
+
+Envelope *-- "1" HashTag
+Operation "1" o-- "*" HashTag
+Pseudo "*" --o "*" Operation
+
+
+@enduml

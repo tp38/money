@@ -1,0 +1,91 @@
+@startuml
+title Diagramme des Cas d'Utilisation - Budget v4
+'skinparam handwritten true
+skinparam actorStyle awesome
+
+'left to right direction
+
+actor user as U
+admin as A
+
+U <|- A
+
+rectangle Budget {
+  usecase C_U as "manage
+   user
+   account"
+
+  package Bank {
+    usecase C_BA  as "Contract
+    BankAccount"
+    usecase U_BA as "Use
+     BankAccount"
+    usecase U_PM as "Use
+     PayMedia
+     (Operation)"
+    usecase V_BAS as "View
+     BankAccount
+     Summary"
+    usecase C_TS as "Change
+     Operation
+     status"
+    usecase S_T as "Search
+     Operations"
+  }
+
+  Package Management {
+    usecase E_A as "Analyse
+     Expenses"
+    usecase C_R as "Create
+     Reports"
+    usecase B_E as "Define
+     Budgetary
+     Envelopes"
+    usecase M_HR as "manage a
+     #Envelopes
+     Repository"
+    usecase M_PR as "manage a
+     @Thirds
+     Repository"
+
+     note bottom of M_HR
+       a #Envelope is expenditure type.
+       ie : House, Cars, Leasure, and so on ...
+     end note
+
+     note right of M_PR
+       a @Third is an entity for/to
+       which the expenditure is intended.
+       ie : @Thierry, @Carrefour, and so on ...
+     end note
+  }
+
+  note as HR_UPDATE_NOTE
+    Create, Update or Delete
+    a Operation must update
+    @Thirds and #Envelopes
+    Repositories
+  end note
+}
+
+A --> C_U
+U -left-> C_BA
+U -left-> U_BA
+U -left-> V_BAS
+U_BA ..> U_PM : include
+U_BA ..> C_TS : include
+U_BA ..> S_T : include
+U --> E_A
+U --> B_E
+E_A --|> C_R
+B_E --|> C_R
+B_E ..> M_HR : include
+E_A ..> M_PR : include
+
+
+
+U_PM .. HR_UPDATE_NOTE
+M_HR .. HR_UPDATE_NOTE
+M_PR .. HR_UPDATE_NOTE
+
+@enduml

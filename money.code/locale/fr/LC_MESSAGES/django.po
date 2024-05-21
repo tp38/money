@@ -1,0 +1,539 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-01 09:18+0000\n"
+"PO-Revision-Date: 2023-12-01 10:20+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: banks/forms.py:11
+msgid "Completion date"
+msgstr "Date de réalisation"
+
+#: banks/forms.py:12
+msgid "Enter here the completion date for this operation."
+msgstr "Entrer ici la date de réalisation de l'opération."
+
+#: banks/forms.py:19 banks/forms.py:57 budget/forms.py:14 budget/forms.py:29
+#: templates/budget/budgetitem_list.html:28
+msgid "Amount"
+msgstr "Montant"
+
+#: banks/forms.py:20
+msgid "-999999.99€ <= the amount in euro (€) <= 999999.99€."
+msgstr "-999999.99€ <= montant en euro (€) <= 999999.99€."
+
+#: banks/forms.py:38
+msgid "Paymedia"
+msgstr "Moyen de paiement"
+
+#: banks/forms.py:39 banks/forms.py:56
+msgid "Comment"
+msgstr "Commentaire"
+
+#: banks/forms.py:40 banks/forms.py:58
+msgid "State"
+msgstr "État"
+
+#: banks/forms.py:41
+msgid "Reccurence"
+msgstr "Périodicité"
+
+#: banks/forms.py:43
+msgid "PayMedia for this Operation."
+msgstr "Moyen de paiement de cette opération."
+
+#: banks/forms.py:44
+msgid ""
+"Write here anything that make sense for you.\n"
+"Use @Pseudo ou #HashTag to sort Operations."
+msgstr ""
+"Inscrire ici ce qui fait sens pour vous.\n"
+"Utiliser @Pseudo et #HashTag pour regrouper les opérations."
+
+#: banks/forms.py:45
+msgid "State of operation in ['Check', 'Done', 'Upcoming']."
+msgstr "État de l'opération ['Pointée', 'Réalisée', 'A venir']."
+
+#: banks/forms.py:46
+msgid ""
+"Frequency of operation in ['None', 'Monthly', 'Quaterly', 'Halfyearly', "
+"'Yearly']"
+msgstr ""
+"Périodicité de l'opération ['Aucune', 'Mensuelle', 'Trimestrielle', "
+"'Semestrielle', 'Annuelle']"
+
+#: banks/forms.py:53
+msgid "PayMedia"
+msgstr "Moyen de paiement"
+
+#: banks/forms.py:53
+msgid "Choose here the paymedia you search for"
+msgstr "Choisissez le moyen de paiement recherché"
+
+#: banks/forms.py:54
+msgid "Completion_date"
+msgstr "Date de réalisation"
+
+#: banks/forms.py:54
+msgid "Enter here the completion date you search for"
+msgstr "Entrer ici la date de réalisation recherchée"
+
+#: banks/forms.py:55
+msgid "Value date"
+msgstr "Date de valeur"
+
+#: banks/forms.py:55
+msgid "Enter here the value date you search for"
+msgstr "Entrer ici la date de valeur recherchée"
+
+#: banks/forms.py:56
+msgid "Enter here the string you search for in Comment field"
+msgstr ""
+"Entrer ici la chaîne de caractères à rechercher dans le champ Commentaire"
+
+#: banks/forms.py:57
+msgid "Enter here the amount you search for"
+msgstr "Entrer ici le montant à rechercher"
+
+#: banks/forms.py:58
+msgid "Select the state you search for"
+msgstr "Sélectionner l'état à rechercher"
+
+#: banks/forms.py:59
+msgid "Recurrence"
+msgstr "Périodicité"
+
+#: banks/forms.py:59
+msgid "Select the recurrence you search for"
+msgstr "Sélectionner la périodicité que vous rechercher"
+
+#: banks/models/bankaccount.py:10
+msgid "Blue"
+msgstr "Bleu"
+
+#: banks/models/bankaccount.py:11
+msgid "Grey"
+msgstr "Gris"
+
+#: banks/models/bankaccount.py:12
+msgid "Green"
+msgstr "Vers"
+
+#: banks/models/bankaccount.py:13
+msgid "Red"
+msgstr "Rouge"
+
+#: banks/models/bankaccount.py:14
+msgid "Orange"
+msgstr "Orange"
+
+#: banks/models/bankaccount.py:15
+msgid "Cyan"
+msgstr "Cyan"
+
+#: banks/models/bankaccount.py:16
+msgid "LightGrey"
+msgstr "Gris clair"
+
+#: banks/models/bankaccount.py:17
+msgid "DarkGrey"
+msgstr "Gris foncé"
+
+#: banks/models/bankaccount.py:21
+msgid "Checking Account"
+msgstr "Compte courant"
+
+#: banks/models/bankaccount.py:22
+msgid "`A` Booklet"
+msgstr "Livret A"
+
+#: banks/models/bankaccount.py:23
+msgid "Popular Booklet"
+msgstr "Livret d'Épargne Populaire"
+
+#: banks/models/bankaccount.py:24
+msgid "Cash Account"
+msgstr "Compte d'Espèces"
+
+#: banks/models/bankaccount.py:25
+msgid "Stock Exchange"
+msgstr "Compte en Actions"
+
+#: banks/models/bankaccount.py:67
+msgid "Joint"
+msgstr "Joint"
+
+#: banks/models/operation.py:10
+msgid "Check"
+msgstr "Pointée"
+
+#: banks/models/operation.py:11 templates/banks/operation_list.html:82
+msgid "Done"
+msgstr "Réalisée"
+
+#: banks/models/operation.py:12 templates/banks/operation_list.html:83
+msgid "Upcoming"
+msgstr "A venir"
+
+#: banks/models/operation.py:16
+msgid "None"
+msgstr "Aucun"
+
+#: banks/models/operation.py:17
+msgid "Monthly"
+msgstr "Mensuel"
+
+#: banks/models/operation.py:18
+msgid "Quaterly"
+msgstr "Trimestriel"
+
+#: banks/models/operation.py:19
+msgid "Halfyearly"
+msgstr "Semestriel"
+
+#: banks/models/operation.py:20
+msgid "Yearly"
+msgstr "Annuel"
+
+#: banks/models/paymedia.py:12
+msgid "Immediate"
+msgstr "Immédiat"
+
+#: banks/models/paymedia.py:13
+msgid "Deferred"
+msgstr "Différé"
+
+#: banks/models/paymedia.py:17
+msgid "Card"
+msgstr "Carte"
+
+#: banks/models/paymedia.py:18
+msgid "Cheque"
+msgstr "Chéque"
+
+#: banks/models/paymedia.py:19
+msgid "Transfer"
+msgstr "Virement"
+
+#: banks/models/paymedia.py:20
+msgid "Cash"
+msgstr "Espèces"
+
+#: banks/models/paymedia.py:21
+msgid "Interbank"
+msgstr "Inter-Banques"
+
+#: budget/forms.py:13
+msgid "Name"
+msgstr "Nom"
+
+#: budget/forms.py:16
+msgid "Set here the Budget Item name."
+msgstr "Renseigner ici le nom de la ligne budgétaire."
+
+#: budget/forms.py:17 budget/forms.py:33
+msgid "Set here the amount for this budget item."
+msgstr "Renseigner ici le montant pour cette ligne budgétaire."
+
+#: budget/forms.py:28
+msgid "BudgetItem"
+msgstr "Ligne budgétaire"
+
+#: budget/forms.py:30
+msgid "Valid"
+msgstr "Valider"
+
+#: budget/forms.py:32
+msgid "Set her the budget concerned BudgetItem."
+msgstr "Renseigner ici le budget de la ligne budgétaire."
+
+#: budget/forms.py:34
+msgid "OpElement to take into account or not."
+msgstr "Élément a prendre en compte (ou non)."
+
+#: templates/banks/bankaccount_list.html:21
+msgid "Sum"
+msgstr "Total"
+
+#: templates/banks/bankaccount_list.html:56
+msgid "View operation list for this account"
+msgstr "Visualiser la liste des opération de ce compte"
+
+#: templates/banks/operation_confirm_delete.html:19
+msgid "Delete an Operation"
+msgstr "Effacer une opération"
+
+#: templates/banks/operation_confirm_delete.html:27
+msgid "Are you sure you really want to delete this operation"
+msgstr "Êtes vous sur de vouloir supprimer cette oération"
+
+#: templates/banks/operation_confirm_delete.html:38
+#: templates/budget/opelement_confirm_delete.html:36
+msgid "Confirm"
+msgstr "Confirmer"
+
+#: templates/banks/operation_confirm_delete.html:39
+msgid "Return to your BankAccount detail"
+msgstr "Retourner au détail de ce compte bancaire"
+
+#: templates/banks/operation_confirm_delete.html:39
+#: templates/banks/operation_form.html:37
+#: templates/banks/operation_search_form.html:35
+#: templates/budget/budgetitem_form.html:33
+#: templates/budget/opelement_confirm_delete.html:37
+#: templates/budget/opelement_form.html:36 templates/home.html:12
+msgid "Cancel"
+msgstr "Annuler"
+
+#: templates/banks/operation_form.html:23
+msgid "Create or update an Operation"
+msgstr "Créer ou mettre à jour une opération"
+
+#: templates/banks/operation_form.html:36
+#: templates/budget/budgetitem_form.html:32
+#: templates/budget/opelement_form.html:35
+msgid "Save"
+msgstr "Sauvegarder"
+
+#: templates/banks/operation_form.html:36
+msgid "Save this new pay operation"
+msgstr "Sauvegarder cette nouvelle opération"
+
+#: templates/banks/operation_form.html:37
+#: templates/banks/operation_search_form.html:35
+#: templates/budget/opelement_form.html:36
+msgid "Cancel and return to the pay media list for this account"
+msgstr "Annuler et retourner à la liste des moyens de paiement de ce compte"
+
+#: templates/banks/operation_list.html:19
+msgid "Search result"
+msgstr "Résultat de la recherche"
+
+#: templates/banks/operation_list.html:26
+msgid "Display all operations "
+msgstr "Afficher toutes les opérations "
+
+#: templates/banks/operation_list.html:27
+msgid "Display active operations "
+msgstr "Afficher les opérations courantes "
+
+#: templates/banks/operation_list.html:28
+msgid "Display/Hide checked operations"
+msgstr "Afficher/Cacher les opérations pointées"
+
+#: templates/banks/operation_list.html:29
+msgid "Display/Hide done operations"
+msgstr "Afficher/Cacher les opérations réalisées"
+
+#: templates/banks/operation_list.html:30
+msgid "Display/Hide upcoming operations"
+msgstr "Afficher/Cacher les opérations à venir"
+
+#: templates/banks/operation_list.html:33
+msgid "Add an Operation"
+msgstr "Ajouter une opération"
+
+#: templates/banks/operation_list.html:34
+msgid "Search operations"
+msgstr "Recherche d'opérations"
+
+#: templates/banks/operation_list.html:81
+msgid "Checked"
+msgstr "Pointée"
+
+#: templates/banks/operation_list.html:84
+msgid "Edit"
+msgstr "Modifier"
+
+#: templates/banks/operation_list.html:86 templates/budget/elts4op_list.html:54
+msgid "Add"
+msgstr "Ajouter"
+
+#: templates/banks/operation_list.html:88
+msgid "Spread"
+msgstr "Répartir"
+
+#: templates/banks/operation_list.html:90
+msgid "Delete"
+msgstr "Supprimer"
+
+#: templates/banks/operation_search_form.html:22
+msgid "Search Operations"
+msgstr "Recherche d'opérations"
+
+#: templates/banks/operation_search_form.html:34
+msgid "Search"
+msgstr "Rechercher"
+
+#: templates/banks/operation_search_form.html:34
+msgid "Search for operations like that"
+msgstr "Recherche d'opérations correspondant à"
+
+#: templates/base.html:13
+msgid "Money"
+msgstr "Money"
+
+#: templates/base.html:18
+msgid "Go to Django admin"
+msgstr "Vers le site d'administration"
+
+#: templates/base.html:20
+msgid "Sign out"
+msgstr "Sortir"
+
+#: templates/budget/budgetitem_form.html:19
+msgid "Create or Update a Budget Item"
+msgstr "Créer ou mettre à jour une ligne budgétaire"
+
+#: templates/budget/budgetitem_form.html:32
+msgid "Save this budget item"
+msgstr "Sauvegarder cette ligne budgétaire"
+
+#: templates/budget/budgetitem_form.html:33
+msgid "Cancel and return to your BudgetItem list"
+msgstr "Annuler et retourner à la liste des lignes budgétaires"
+
+#: templates/budget/budgetitem_list.html:19
+msgid "BudgetItem list of"
+msgstr "Lignes budgétaires de"
+
+#: templates/budget/budgetitem_list.html:27
+msgid "Budget Name"
+msgstr "Ligne budgétaire"
+
+#: templates/budget/budgetitem_list.html:29
+#: templates/budget/budgetitem_list.html:46
+msgid "Balance"
+msgstr "Delta"
+
+#: templates/budget/budgetitem_list.html:35
+msgid "Edit this Budget Item"
+msgstr "Modifier cette ligne budgétaire"
+
+#: templates/budget/budgetitem_list.html:41
+msgid "List OpElement for this Budget Item"
+msgstr "Liste des opérations de cette ligne budgétaire"
+
+#: templates/budget/budgetitem_list.html:54
+msgid "Total"
+msgstr "Total"
+
+#: templates/budget/budgetitem_list.html:67
+msgid "Enveloppes List for this month"
+msgstr "Liste des enveloppes pour ce mois"
+
+#: templates/budget/budgetitem_list.html:67
+msgid "View enveloppes List for this month"
+msgstr "Visualiser la liste des enveloppes pour ce mois"
+
+#: templates/budget/budgetitemref_list.html:19
+msgid "BudgetItemRef list"
+msgstr "Liste de référence des lignes budgétaires"
+
+#: templates/budget/elts4bi_list.html:19
+msgid "OpElement list for"
+msgstr "Liste des opérations pour"
+
+#: templates/budget/elts4bi_list.html:38
+msgid "Spreading detail"
+msgstr "Détail de la répartition"
+
+#: templates/budget/elts4bi_list.html:53
+msgid "There's no OpElement for this Item yet"
+msgstr "Il n'y a pas encore d'opération pour cette ligne"
+
+#: templates/budget/elts4op_list.html:19
+msgid "Spreading detail for :"
+msgstr "Détail de la répartition pour :"
+
+#: templates/budget/elts4op_list.html:24
+msgid "Update this Operation"
+msgstr "Mettre à jour cette opération"
+
+#: templates/budget/elts4op_list.html:38
+msgid "Update this OpElement"
+msgstr "Mettre à jour cet élément"
+
+#: templates/budget/elts4op_list.html:39
+msgid "Delete this OpElement"
+msgstr "Effacer cet élément"
+
+#: templates/budget/elts4op_list.html:48
+msgid "There's no OpElement for this Operation yet"
+msgstr "Il n'y a pas encore d'élément pour cette opération"
+
+#: templates/budget/elts4op_list.html:54
+msgid "Add a new opelement for this operation"
+msgstr "Ajouter un nouvel élément  pour cette opération"
+
+#: templates/budget/enveloppe_detail.html:19
+#: templates/budget/enveloppes_list.html:19
+msgid "Enveloppes list for"
+msgstr "Liste des enveloppes pour"
+
+#: templates/budget/opelement_confirm_delete.html:19
+msgid "Delete an OpElement"
+msgstr "Effacer un élément"
+
+#: templates/budget/opelement_confirm_delete.html:26
+msgid "Are you sure you really want to delete this OpElement"
+msgstr "Êtes vous sur de vouloir supprimer cet élément"
+
+#: templates/budget/opelement_confirm_delete.html:37
+msgid "Return to OpElement list"
+msgstr "Retour vers la liste des éléments"
+
+#: templates/budget/opelement_form.html:22
+msgid "Create or update an OpElement"
+msgstr "Créer ou mettre à jour un élément"
+
+#: templates/budget/opelement_form.html:35
+msgid "Save this new OpElement"
+msgstr "Sauvegarder ce nouvel élément"
+
+#: templates/home.html:11
+msgid "Login"
+msgstr "Entrer"
+
+#: templates/select_date.html:7
+msgid "Current month"
+msgstr "Mois courant"
+
+#: templates/select_date.html:9 templates/select_date.html:16
+#: templates/select_date.html:18
+msgid "Set date"
+msgstr "Valider la date"
+
+#~ msgid "Real"
+#~ msgstr "Réel"
+
+#~ msgid "v1.0.0 20231026"
+#~ msgstr "v1.0.0 20231026"
+
+#~ msgid "Search matching operations"
+#~ msgstr "Chercher les opérations correspondantes"
+
+#~ msgid "View this bank account"
+#~ msgstr "Visualiser ce compte bancaire"
+
+#~ msgid "Set"
+#~ msgstr "Valider"
+
+#~ msgid "List categories"
+#~ msgstr "Liste des catégories"
+
+#~ msgid "OpElement list for : "
+#~ msgstr "Liste des opérations pour : "

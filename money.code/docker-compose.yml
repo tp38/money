@@ -1,0 +1,27 @@
+version: "3.3"
+name: "money_dev"
+
+services:
+  db:
+    image: postgres:16.0-bookworm
+    container_name: db_dev
+    volumes:
+      - ../money.postgres/data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5555:5432"
+  web:
+    build: .
+    container_name: web_dev
+    entrypoint: /code/entrypoint.sh
+    volumes:
+      - .:/code
+      - ../money.media:/code/media
+      - ../money.static:/code/static
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db

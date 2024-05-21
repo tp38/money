@@ -1,0 +1,52 @@
+{% extends 'my_bootstrap5.html' %}
+
+{% block bootstrap5_title %}{% block title %}{% endblock %}{% endblock %}
+{% load i18n %}
+{% load django_bootstrap5 %}
+{% load banks_extra %}
+
+{% block bootstrap5_before_content %}
+<header>
+  <div class="container container-md">
+    <div class="row my-2 justify-content-around">
+      <div class="col-6 col-md-3 h1 text-primary text-start">
+        {% trans "Money" %}  <i class="fa-solid fa-comments-dollar"></i>
+      </div>
+      <div class="col-5 col-md-2 text-end">
+        {% if user.is_authenticated %}
+          {% if user.is_superuser %}
+            <a href="{% url 'admin:index' %}" class="btn btn-outline-primary"  data-toggle="tooltip" title="{% trans 'Go to Django admin' %}"><i class="fas fa-users-cog"></i></a>
+          {% endif %}
+          <a href="{% url 'logout' %}" class="btn btn-outline-primary" data-toggle="tooltip" title="{% trans 'Sign out' %}"><i class="fas fa-sign-out-alt"></i></a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock %}
+
+
+{% block bootstrap5_after_content%}
+<footer>
+  <div class="container container-md my-5 py-5">
+    <div class="row justify-content-around text-primary">
+      <div class="col-3 col-md-1 text-start">
+        <a href="mailto:thierry.probst@free.fr?subject='money v1.0.0 feedback'">Thierry Probst</a>
+      </div>
+      <div class="col-3 col-md-1 text-end fst-italic">
+        {% app_version %} {% app_date %}
+      </div>
+    </div>
+  </div>
+</footer>
+{% endblock %}
+
+{% block bootstrap5_extra_script %}
+  <script src='https://kit.fontawesome.com/985cec4112.js' crossorigin='anonymous'></script>
+
+  <script type="text/javascript">
+    function set_today() {
+      document.getElementById('view_day').value = "{% now 'Y-m-d' %}";
+    }
+  </script>
+{% endblock %}

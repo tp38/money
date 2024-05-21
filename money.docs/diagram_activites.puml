@@ -1,0 +1,86 @@
+@startuml
+title Diagramme d'Activité -Budget v4
+'pragma useVerticalIf on
+skinparam ConditionEndStyle hline
+
+start
+repeat :login;
+repeat while (auth ?)
+if (role = admin) then (yes)
+  repeat :manage user;
+  repeat while (another user) is (yes)
+endif
+while (logout ?)
+  if (bankaccount exist) then (no)
+    :new BankAccount;
+    repeat :new PayMedia;
+    repeat while (add another paymedia) is (yes)
+  else (yes)
+    :display MainScreen;
+    if (bankaccount) then (yes)
+      (A)
+      partition Operation {
+        :see below;
+      }
+      (B)
+    elseif (budget) then (yes)
+      (C)
+      partition Envelope {
+        :see below;
+      }
+      (E)
+    elseif (analyse) then (yes)
+      (F)
+      partition Third {
+        :see below;
+      }
+      (G)
+    endif
+  endif
+endwhile (yes)
+stop
+
+(A)
+partition Operation {
+  repeat :read Operations[BankAccount];
+    if (exist) then (yes)
+      if (modify) then (yes)
+        :perform update;
+      elseif (delete) then (yes)
+        if (confirm) then (yes)
+          :perform deletion;
+        endif
+      elseif (search) then (yes)
+        :get criteria;
+        :perform search;
+      endif
+    endif
+    if (add) then (yes)
+      :new Operation;
+    endif
+  repeat while (return to MainScreen) is (no)
+}
+(B)
+
+detach
+
+(C)
+partition Envelope {
+  repeat :read Envelope[Year-Month];
+    if (modify) then (yes)
+      :perform update;
+    endif
+  repeat while (return to MainScreen) is (no)
+}
+(D)
+
+detach
+
+(F)
+partition Third {
+  repeat :read Third;
+  repeat while (return to MainScreen) is (no)
+}
+(G)
+
+@enduml

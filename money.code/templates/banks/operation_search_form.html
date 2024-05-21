@@ -1,0 +1,42 @@
+<!-- templates banks/operation_search_form.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% get_media_prefix %}
+{% load i18n %}
+{% load banks_extra %}
+
+{% block title %}Create or Edit an Operation{% endblock %}
+{% load django_bootstrap5 %}
+
+
+{% block bootstrap5_content %}
+  {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+  <main>
+    <div class="container container-md">
+    {% include 'select_date.html' %}
+    {% include 'menu.html' %}
+		<!----------------- start -------------->
+		<div class="row justify-content-center">
+			<div class="col text-center">
+				<h2>{% trans "Search Operations" %}</h2>
+			</div>
+		</div>
+		<form method="POST">
+			<div class="row justify-content-center mt-3">
+				<div class="col col-md-5">
+					{% csrf_token %}
+					{% bootstrap_form form %}
+				</div>
+			</div>
+			<div class="row justify-content-center ">
+				<div class="col col-md-5 text-center">
+					<input class="btn btn-primary" type="submit" value="{% trans 'Search' %}" data-toggle="tooltip" title="{% trans 'Search for operations like that' %}">
+					<a  class="btn btn-primary" role="button" href="{% url 'banks:operation-list' bankaccount_id 'active' %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'Cancel and return to the pay media list for this account' %}">{% trans 'Cancel' %}</a>
+				</div>
+			</div>
+		</form>
+		<!---------------- end ----------------->
+		</div>
+  </main>
+{% endblock %}

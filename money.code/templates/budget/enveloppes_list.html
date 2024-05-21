@@ -1,0 +1,40 @@
+<!-- templates/budget/budgetitem_list.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load banks_extra %}
+
+{% load django_bootstrap5 %}
+
+
+{% block bootstrap5_content %}
+  {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+  <main>
+    <div class="container container-md">
+    {% include 'select_date.html' %}
+    {% include 'menu.html' %}
+			<!----------------- start -------------->
+			<div class="row justify-content-center my-4">
+				<div class="col col-md-8 h2">
+					{% trans 'Enveloppes list for' %} {{ view_day.year }}-{{ view_day.month }}
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col col-md-6">
+					<table class="table table-striped">
+					  <tbody>
+							{% for e in enveloppes %}
+								<tr>
+									<td>{{ e.categorie__name|truncatechars:18 }}</td>
+									<td class="text-end font-weight-bold">{{ e.total }}</td>
+                  <td class="text-center"><a href="{% url 'budget:enveloppe-detail' e.categorie__name %}?date={{ view_day|date:'Y-m-d' }}"><i class="far fa-eye"></i></a></td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!---------------- end ----------------->
+		</div>
+  </main>
+{% endblock %}

@@ -1,0 +1,73 @@
+<!-- templates/budget/budgetitem_list.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load banks_extra %}
+
+{% load django_bootstrap5 %}
+
+
+{% block bootstrap5_content %}
+  {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+  <main>
+    <div class="container container-md">
+    {% include 'select_date.html' %}
+    {% include 'menu.html' %}
+			<!----------------- start -------------->
+			<div class="row justify-content-center my-4">
+				<div class="col col-md-8 h2">
+					{% trans 'BudgetItem list of' %} {{ view_day.year }}-{{ view_day.month }}
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col col-md-8">
+					<table class="table table-striped">
+					  <tbody>
+              <tr>
+                <th>{% trans 'Budget Name' %}</th>
+                <th colspan="2">{% trans 'Amount' %}</th>
+                <th colspan="2">{% trans 'Balance' %}</th>
+              </tr>
+							{% for bi in budgetitem_list %}
+								<tr>
+									<td>{{ bi.categorie__name|truncatechars:18 }}</td>
+									<td class="text-end font-weight-bold">{{ bi.categorie__amount }}</td>
+									<td><a class="text-end" href="{% url 'budget:item-update' bi.categorie__id %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'Edit this Budget Item' %}"><i class="fas fa-pencil-alt"></i></a></td>
+                  {% if bi.delta > 0 %}
+                  <td class="text-end text-danger">{{ bi.delta }}</td>
+                  {% else %}
+                  <td class="text-end text-success">{{ bi.delta }}</td>
+                  {% endif %}
+									<td><a class="text-end" href="{% url 'budget:elts4bi-list' bi.categorie__id %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'List OpElement for this Budget Item' %}"><i class="far fa-eye"></i></a></td>
+								</tr>
+							{% endfor %}
+							{% if solde > 0 and actual > 0 %}
+							<tr class="table-success font-weight-bold">
+								<td class="text-center">{% trans 'Total' %}</td>
+								<td class="text-end">{{solde}}</td>
+								<td></td>
+								<td class="text-end">{{actual}}</td>
+								<td></td>
+							</tr>
+							{% else %}
+							<tr class="table-danger font-weight-bold">
+								<td class="text-center">{% trans 'Total' %}</td>
+								<td class="text-end">{{solde}}</td>
+								<td></td>
+								<td class="text-end">{{actual}}</td>
+								<td></td>
+							</tr>
+							{% endif %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+      <div class="row justify-content-center">
+          <div class="col col-md-8">
+            <a class="text-center" href="{% url 'budget:enveloppes' %}?date={{ view_day|date:'Y-m-d' }}" data-toggle="tooltip" title="{% trans 'Enveloppes List for this month' %}">{% trans 'View enveloppes List for this month' %} <i class="fa-solid fa-magnifying-glass-chart"></i></a>
+          </div>
+      </div>
+			<!---------------- end ----------------->
+		</div>
+  </main>
+{% endblock %}
