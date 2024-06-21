@@ -82,11 +82,11 @@
             <li><a class="dropdown-item {% if op.state == 'D' %}disabled{% endif %}" href="{% url 'banks:operation-change-status' op.id 'D' %}?date={{ view_day|date:'Y-m-d' }}">{% trans 'Done' %}</a></li>
             <li><a class="dropdown-item {% if op.state == 'U' %}disabled{% endif %}" href="{% url 'banks:operation-change-status' op.id 'U' %}?date={{ view_day|date:'Y-m-d' }}">{% trans 'Upcoming' %}</a></li>
             <li><a class="dropdown-item" href="{% url 'banks:operation-edit' op.id %}?date={{ view_day|date:'Y-m-d' }}">{% trans 'Edit' %}</a></li>
+            <li><a class="dropdown-item" href="{% url 'banks:operation-del' op.id %}">{% trans 'Delete' %}</a></li>
+            <li><hr class="dropdown-divider"></li>
             {% if op.nb == 0 %}
             <li><a class="dropdown-item" href="{% url 'budget:element-add' op.id %}?date={{ view_day|date:'Y-m-d' }}">{% trans 'Add' %}</a></li>
             {% else %}
-            <li><a class="dropdown-item" href="{% url 'banks:operation-del' op.id %}">{% trans 'Delete' %}</a></li>
-            <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{% url 'budget:elts4op-list' op.id %}?date={{ view_day|date:'Y-m-d' }}">{% trans 'Spread' %}</a></li>
             {% endif %}
           </ul>
