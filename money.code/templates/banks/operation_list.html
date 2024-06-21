@@ -85,9 +85,10 @@
             {% if op.nb == 0 %}
             <li><a class="dropdown-item" href="{% url 'budget:element-add' op.id %}?date={{ view_day|date:'Y-m-d' }}">{% trans 'Add' %}</a></li>
             {% else %}
+            <li><a class="dropdown-item" href="{% url 'banks:operation-del' op.id %}">{% trans 'Delete' %}</a></li>
+            <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{% url 'budget:elts4op-list' op.id %}?date={{ view_day|date:'Y-m-d' }}">{% trans 'Spread' %}</a></li>
             {% endif %}
-            <li><a class="dropdown-item" href="{% url 'banks:operation-del' op.id %}">{% trans 'Delete' %}</a></li>
           </ul>
         </div>
       </div>
