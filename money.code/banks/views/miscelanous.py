@@ -45,6 +45,24 @@ def change_date( request ):
     return redirect( f"{reverse('banks:bankaccount-list')}?date={view_day.year}-{view_day.month}-{view_day.day}" )
 
 ########## functions ############################
+
+def two_month_before( year, month ):
+    y = year
+    m = month - 2
+    if m < 1 :
+        y = year - 1
+        m = 12 - m 
+    return  date( y, m, 1 )
+
+
+def two_month_after( year, month ):
+    y = year
+    m = month + 2
+    if m > 12 :
+        y = year + 1
+        m = m - 12
+    return date( y, m, 1)
+
 # @receiver(user_logged_in)
 def periodic_ops(sender, **kwargs):
     """
@@ -57,18 +75,24 @@ def periodic_ops(sender, **kwargs):
         - the Yearly ops (frequency='Y') from m-13 month // not implemented yet
     """
     today = date.today()
-    twomonthfar = today + timedelta( 65 )
+    #twomonthfar = today + timedelta( 65 )
     #### check if there's already Upcoming 2 months later #########
-    start = date( twomonthfar.year, twomonthfar.month, 1)
-    (first_day, nb_days) = monthrange( twomonthfar.year, twomonthfar.month )
-    end = date( twomonthfar.year, twomonthfar.month, nb_days )
+    #start = date( twomonthfar.year, twomonthfar.month, 1)
+    #(first_day, nb_days) = monthrange( twomonthfar.year, twomonthfar.month )
+    #end = date( twomonthfar.year, twomonthfar.month, nb_days )
+    start = two_month_after( today.year, today.month )
+    (first_day, nb_days) = monthrange( start.year, start.month )
+    end = date( start.year, start.month, nb_days )
     upcoming_periodic_ops = Operation.objects.filter( value_date__gte=start).filter( value_date__lte=end).filter(state='U').exclude( frequency='N')
     save = True if not upcoming_periodic_ops else False
     ######## monthly : search for ref ops 2 months before ###########
     if DEBUG or not upcoming_periodic_ops :
-        sm = today - timedelta(60)
-        (first_day, nb_days) = monthrange( sm.year, sm.month )
-        sm = date( sm.year, sm.month, 1)
+#        sm = today - timedelta(60)
+#       (first_day, nb_days) = monthrange( sm.year, sm.month )
+#        sm = date( sm.year, sm.month, 1)
+#        em = date( sm.year, sm.month, nb_days )
+        sm = two_month_before( today.year, today.month )
+        ( first_day, nb_days ) = monthrange( sm.year, sm.month )
         em = date( sm.year, sm.month, nb_days )
         monthly_ops = Operation.objects.filter( value_date__gte=sm).filter( value_date__lte=em).filter( frequency='M')
         for ops in monthly_ops:

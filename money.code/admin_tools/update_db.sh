@@ -1,5 +1,10 @@
 #!/bin/bash
 # Resets the local Django database, adding an admin login and migrations
+
+cd /code
+
+source /opt/venv/bin/activate
+
 set -e
 echo ">>> Resetting the database"
 ./manage.py reset_db --close-sessions --noinput
@@ -28,11 +33,11 @@ echo -e "\n>>> Creating new superuser 'admin'"
    --email thierry.probst@free.fr \
    --noinput
 
-password=`cat ./secret.txt`
+password=`cat /code/admin_tools/secret.txt`
 echo -e "\n>>> Setting superuser 'admin' password"
 ./manage.py shell_plus --quiet-load -c "
 u=User.objects.get(username='th')
-u.set_password( ${password} )
+u.set_password( '${password}' )
 u.save()
 "
 # Any extra data setup goes here.
@@ -40,3 +45,5 @@ echo -e "\n>>> Updating data"
 ./manage.py loaddata db.json
 
 echo -e "\n>>> Database restore finished."
+
+deactivate
