@@ -51,7 +51,7 @@ def two_month_before( year, month ):
     m = month - 2
     if m < 1 :
         y = year - 1
-        m = 12 - m 
+        m = 12 - abs(m) 
     return  date( y, m, 1 )
 
 
