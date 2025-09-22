@@ -7,6 +7,8 @@ from django.urls import reverse
 from django.db.models import Sum, F
 
 
+from datetime import date
+
 from banks.views import get_view_day
 
 from budget.models import Month, BudgetItem, OpElement
@@ -51,14 +53,25 @@ class BudgetItemList(generic.ListView):
         view_day = get_view_day( self.request )
         m = get_month( view_day )
 
-        qs = OpElement.objects\
-        .values('categorie__id','categorie__month__start',
-        'categorie__name', 'categorie__amount', 'valid')\
-        .filter(valid=True)\
-        .filter(categorie__month__start=view_day.replace(day=1))\
-        .annotate(montant=Sum('amount'))\
-        .annotate(delta=F('categorie__amount')-F('montant'))\
-        .order_by('categorie__name')
+        if m == date( 2024, 1, 1) :
+            qs = OpElement.objects\
+            .values('categorie__id','categorie__month__start',
+            'categorie__name', 'categorie__amount', 'valid')\
+            .filter(valid=True)\
+            .filter(categorie__month__start=view_day.replace(day=1))\
+            .annotate(montant=Sum('amount'))\
+            .annotate(delta=F('montant'))\
+            .order_by('categorie__name')
+
+        else :
+            qs = OpElement.objects\
+            .values('categorie__id','categorie__month__start',
+            'categorie__name', 'categorie__amount', 'valid')\
+            .filter(valid=True)\
+            .filter(categorie__month__start=view_day.replace(day=1))\
+            .annotate(montant=Sum('amount'))\
+            .annotate(delta=F('categorie__amount')-F('montant'))\
+            .order_by('categorie__name')
 
         return qs
 

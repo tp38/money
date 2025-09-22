@@ -14,10 +14,14 @@
       </div>
       <div class="col-5 col-md-2 text-end">
         {% if user.is_authenticated %}
+        {% comment %}Issue #1 : logout next_page is a blank page (Error 405){% endcomment %} 
+          <form action="{% url 'logout' %}" method="post">
           {% if user.is_superuser %}
             <a href="{% url 'admin:index' %}" class="btn btn-outline-primary"  data-toggle="tooltip" title="{% trans 'Go to Django admin' %}"><i class="fas fa-users-cog"></i></a>
           {% endif %}
-          <a href="{% url 'logout' %}" class="btn btn-outline-primary" data-toggle="tooltip" title="{% trans 'Sign out' %}"><i class="fas fa-sign-out-alt"></i></a>
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-primary"><i class="fas fa-sign-out-alt"></i></button>
+          </form>
         {% endif %}
       </div>
     </div>

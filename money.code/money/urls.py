@@ -24,7 +24,8 @@ from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = i18n_patterns(
     path('', auth_views.LoginView.as_view(template_name='home.html', next_page='banks:bankaccount-list'), name='home'),
-    path('logout', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
+    path('login/', auth_views.LoginView.as_view(template_name='home.html', next_page='banks:bankaccount-list'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view( next_page='home' ), name='logout'),
     path('admin/', admin.site.urls),
 	path('banks/', include('banks.urls')),
     path('budget/', include('budget.urls')),
